@@ -1,0 +1,37 @@
+server:
+  port: ${CONFIG_SERVICE_PORT:8300}
+  context-path: /recon
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761/eureka/}
+
+spring:
+  datasource:
+    url: ${APP_DB_URL:jdbc:sqlserver://10.9.40.32;instanceName=SQLEXPRESS14;database=mcpdbqa}
+    username: ${APP_DB_USER:sa}
+    password: ${APP_DB_PASSWORD:Onity@123}
+    driver-class: ${APP_DB_DRIVER_CLASS:com.microsoft.sqlserver.jdbc.SQLServerDriver}
+    type: com.mchange.v2.c3p0.ComboPooledDataSource
+    factoryClassLocation: org.apache.naming.factory.BeanFactory
+    maxIdleTime: 600
+    maxPoolSize: 100
+    minPoolSize: 5
+    initialPoolSize: 5
+    acquireIncrement: 5
+    numHelperThreads: 20
+    
+  jpa:
+    database-platform: ${APP_DB_JPA_DIALECT:org.hibernate.dialect.MySQLDialect}
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.use_nationalized_character_data: ${NATIONAL_CHARSET:true}
+            
+redis:
+  session:
+    host: ${REDIS_HOST:127.0.0.1}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}

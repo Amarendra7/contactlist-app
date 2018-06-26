@@ -1,0 +1,20 @@
+server:
+  context-path: /uaa
+  port: ${OAUTH_SERVICE_PORT:5000}
+  use-forward-headers: true
+
+application:
+  extendedUserDetails: ${XTND_USER_DTL:true} #set UserServiceFeignClient to load additional populateRoleAndIdentityDetails
+
+logging:
+  level.org.springframework.security: DEBUG
+
+logoutURL: ${LOGOUT_URL:http://localhost}
+
+
+security:
+  basic:
+    enabled: false
+  user:
+    password: password
+  ignored: /css/**,/js/**,/favicon.ico,/webjars/**,/node_modules/**

@@ -1,0 +1,12 @@
+server:
+  context-path: /mcpnotificationservice
+  port: ${NOTIFICATION_SERVICE_PORT:9017}
+
+rates:
+  url: http://api.fixer.io
+ 
+mail:
+  host: ${SMTP_HOST:legacy.startupfarms.com}
+  username: ${SMTP_USER:aemcpadmin}
+  password: ${SMTP_PASSWORD:Alert1234@}
+  from: ${SMTP_FROM:aemcpadmin@alertenterprise.com}

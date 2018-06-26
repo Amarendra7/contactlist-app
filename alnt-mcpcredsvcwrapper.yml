@@ -1,0 +1,36 @@
+server:
+  context-path: /mcpcredsvc
+  port: ${CREDENTIAL_WRAPPER_SERVICE_PORT:9005}
+
+rates:
+  url: http://api.fixer.io
+    
+apidetails:
+  url: ${APPDETAIL_URL:https://stgapi.credentialserver.com/api}
+  apiUserName: ${APPDETAIL_USERID:StgAdmin}
+  apiPassword: ${APPDETAIL_API_PASSWORD:StgAdmin123456789!}
+  keyStorePassword: ${APPDETAIL_KEYSTORE_PASSWORD:StgAdmin123456789!}
+  filepath: ${CONFIG_CERTIFICATE_PATH:/config/StgAdmin@stgapi.credentialserver.com.pfx}
+  inventoryOwner : 2
+  downloadToolkitURL: ${APPDETAIL_DOWNLOAD_TOOLKIT_URL:"http://074bb92e8e670240310c-33ccbb6ceb94410570256d628c13893d.r21.cf1.rackcdn.com/3millID_Toolkit.zip"}
+  keyActivationURL: ${APPDETAIL_KEY_ACTIVATION_URL:sledevomcbekey.test.suprakim.com}
+  toolkitActivationURL: ${APPDETAIL_TOOLKIT_ACTIVATION_URL:https://sledevomcbekey.test.suprakim.com}
+  loginPortal : http://alnt-gateway 
+  useSystemCode : ${USE_SYSTEM_CODE:false}
+  maxOrderKeyLimit : 1000
+
+jmsConfig:
+  orderQueue:
+    concurrency: 5-30
+  importQueue:
+    concurrency: 5-10
+
+logging:
+  file:  /opt/AlertEnterprise/log/alnt-mcpcredsvcwrapper.log
+  level:
+    com.alnt.credential.clients.SetupServiceFeignClient: DEBUG
+    com.alnt.credential.clients.McpUMServiceFeignClient: DEBUG
+
+spring:
+  jpa:
+   show-sql: false

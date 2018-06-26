@@ -1,0 +1,6 @@
+server:
+  context-path: /mcpauditservice
+  port: 9015
+
+rates:
+  url: http://api.fixer.io

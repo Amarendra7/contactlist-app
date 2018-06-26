@@ -1,0 +1,16 @@
+server:
+  context-path: /mcpschedulerservice
+  port: ${SCHEDULER_SERVICE_PORT:9018}
+
+piJob:
+ piJobCronExp : "0 1 * * * ?"
+ expiryDays : 1
+ updateString : "{XXX}"
+ enable : false
+ 
+CredentialStatusJob:
+ cronExp : "0 1 * * * ?"
+ enable : false
+ 
+rates:
+  url: http://api.fixer.io

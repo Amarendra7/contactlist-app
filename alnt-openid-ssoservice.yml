@@ -1,0 +1,26 @@
+server:
+  port: ${OPENID_SSO_SERVICE_PORT:5010}
+  context-path: /sso
+
+---
+spring:
+  profiles: azure
+ssoConfigurations:
+  client:
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+    scope: openid profile email
+    logoutURL: ${LOGOUT_URL:https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=}
+    additionalResource: ${additionalResource:https://graph.windows.net}
+    prompt: ${PROMPT:login}
+    useCurrentUri: ${useCurrentUri:false}
+  resource:
+
+---
+security:
+  user:
+    password: user
+  # Disable Spring Boot basic authentication
+  basic:
+    enabled: false
+  ignored: /,/favicon.ico,/index.html,/home.html,/dashboard.html,/js/**,/css/**,/webjars/**

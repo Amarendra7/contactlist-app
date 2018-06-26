@@ -1,0 +1,46 @@
+server:
+  context-path: /spu
+  port: ${SPU_SERVICE_PORT:7070}
+  
+security:
+  oauth2:
+    client:
+      clientId: alnt-spuservice
+      clientSecret: ${ALERT_SETUP_SERVICE_PASSWORD}
+      accessTokenUri: ${OAUTH_ACCESS_TOKEN_URL:http://localhost:5000/uaa/oauth/token}
+      grant-type: client_credentials
+      scope: server
+
+# Datasource and JPA configuration to be used for storing the OAuth authorization details 
+# and token store
+spring:
+  datasource:
+    url: ${APP_DB_URL:jdbc:sqlserver://10.9.40.32;instanceName=SQLEXPRESS14;database=mcpdbqa}
+    username: ${APP_DB_USER:sa}
+    password: ${APP_DB_PASSWORD:Onity@123}
+    driver-class: ${APP_DB_DRIVER_CLASS:com.microsoft.sqlserver.jdbc.SQLServerDriver}
+    type: com.mchange.v2.c3p0.ComboPooledDataSource
+    factoryClassLocation: org.apache.naming.factory.BeanFactory
+    maxIdleTime: 600
+    maxPoolSize: 100
+    minPoolSize: 5
+    initialPoolSize: 5
+    acquireIncrement: 5
+    numHelperThreads: 20
+      
+  jpa:
+    database-platform: ${APP_DB_JPA_DIALECT:org.hibernate.dialect.MySQLDialect}
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.use_nationalized_character_data: ${NATIONAL_CHARSET:true}
+
+# Define the Eureka server that handles service registration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761/eureka/}
+
+rates:
+  url: http://api.fixer.io

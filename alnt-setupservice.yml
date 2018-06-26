@@ -1,0 +1,3 @@
+server:
+  context-path: /setup
+  port: ${SETUP_SERVICE_PORT:7000}

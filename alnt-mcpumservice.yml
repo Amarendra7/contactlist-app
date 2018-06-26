@@ -1,0 +1,22 @@
+server:
+  port: ${MCPUM_SERVICE_PORT:8128}
+
+azureAD:
+  authorityUrl: https://login.microsoftonline.com/
+  grantType: client_credentials
+  apiVersion: 1.6
+  resource: https://graph.windows.net/
+
+application:
+  identityProvider: ${IDENTITY_PROVIDER:AZURE_IDENTITY_PROVIDER} #ALERT_IDENTITY_PROVIDER   AZURE_IDENTITY_PROVIDER
+  backupIdentityProvider: ${BACKUP_IDENTITY_PROVIDER:ALERT_IDENTITY_PROVIDER}  #ALERT_IDENTITY_PROVIDER or put nothing there
+  defaultSecret: ${defaultSecret:}
+
+
+security:
+  user:
+    password: user
+  # Disable Spring Boot basic authentication
+  basic:
+    enabled: false
+  ignored: /css/**,/js/**,/favicon.ico,/webjars/**,/node_modules/**

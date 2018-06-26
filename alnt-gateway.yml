@@ -1,0 +1,93 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+  port: ${GATEWAY_SERVICE_PORT:4000}
+  compression:
+    enabled: ${SERVER_COMPRESSION:true}
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/css,application/javascript
+    server.compression.min-response-size: 1024 
+
+logging:
+  file:  /opt/AlertEnterprise/log/alnt-gateway.log
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
+  debug:
+    request: true
+
+  routes:
+    alnt-oauthservice:
+        path: /uaa/**
+        serviceId: alnt-oauthservice
+        stripPrefix: false
+        sensitiveHeaders:
+    alnt-openid-ssoservice:
+        path: /sso/**
+        serviceId: alnt-openid-ssoservice
+        stripPrefix: false
+        sensitiveHeaders:
+    alnt-setupservice:
+        path: /setup/**
+        serviceId: alnt-setupservice
+        stripPrefix: false
+        sensitiveHeaders:
+    alnt-SPUDashboard:
+        path: /SPUDashboard/**
+        url: ${KIBANA_SERVICE_URL:http://localhost:5601/}
+        stripPrefix: false
+        sensitiveHeaders:
+    alnt-spuservice:
+        path: /spu/**
+        serviceId: alnt-spuservice
+        stripPrefix: false
+        sensitiveHeaders:
+    alnt-mcpcredsvcwrapper:
+        path: /mcpcredsvc/**
+        serviceId: alnt-mcpcredsvcwrapper
+        stripPrefix: false
+        sensitiveHeaders:
+    alnt-mcpumservice:
+        path: /mcpumservice/**
+        serviceId: alnt-mcpumservice
+        stripPrefix: false
+        sensitiveHeaders:
+    alnt-credentialwrapperservice:
+        path: /credentialwrapperservice/**
+        serviceId: alnt-credentialwrapperservice
+        stripPrefix: false
+        sensitiveHeaders:
+    alnt-mcp-auditlogservice:
+        path: /mcpauditservice/**
+        serviceId: alnt-mcp-auditlogservice
+        stripPrefix: false
+        sensitiveHeaders:
+    alnt-reconservice:
+        path: /recon/**
+        serviceId: alnt-reconservice
+        stripPrefix: false
+        sensitiveHeaders:
+
+
+security:
+  user:
+    password: user
+  # Disable Spring Boot basic authentication
+  basic:
+    enabled: false
+  ignored: /css/**,/js/**,/favicon.ico,/webjars/**,/external_modules/**
+  sessions: never
+
+session:
+  Ignored: /AlertMCPWebHelp/.*,/assets/.*,/mcpcredsvc/reports/getJrsUrl,/mcpcredsvc/reports/getJrsToken,/logout,/sso/logout,/login,/sso/login/.*,/resources/i18n/.*,/img/.*,/css/.*,/js/.*,/themes/.*,/favicon.ico,/webjars/.*,/external_modules/.*,/index.html,/,/uaa/oauth/token,/uaa/userauthorization,/SPUDashboard/.*,/setup/applicationmode/getMode,/setup/roles/permission/getLeftMenu,/setup/ui/components,/recon/rem/,/sso/external/auth.*
+
+csrf:
+  exclude:
+    methods: HEAD,TRACE,OPTIONS
